@@ -1,0 +1,10 @@
+version: '3'
+services:
+  url:
+     image: ubicoustics:latest
+     container_name: ubicoustics
+     environment:
+       - MICROPHONE_INDEX=0  # change to a mic that's available (check docker logs)
+     restart: always
+     devices:
+       - "/dev/snd:/dev/snd"
