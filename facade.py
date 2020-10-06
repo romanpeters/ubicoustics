@@ -48,10 +48,10 @@ class State(object):
                 self.reset()
             self.cycle = 1
 
-        state.show()  # print prediction
         if self.cycle == CYCLE_LENGTH:  # if reached a certain number of consecutive cycles
             self.clear = False
             self.sustain = 0
+            state.show()  # print prediction
             send_state(state=self)  # MQTT
 
         if self.sustain >= SUSTAIN:
@@ -66,7 +66,7 @@ class State(object):
 
     def show(self):
         """Prints the current state"""
-        print(f"Prediction: {self.human_label()} {round(float(self.certainty), 2)} [{self.cycle}] [{self.sustain}]")
+        print(f"Prediction: {self.human_label()}")
 
 
 def send_state(state: State):
