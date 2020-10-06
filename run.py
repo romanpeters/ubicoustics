@@ -7,8 +7,8 @@ import ubicoustics
 import pyaudio
 from pathlib import Path
 import time
-import argparse
 import wget
+import facade
 
 # Variables
 FORMAT = pyaudio.paInt16
@@ -19,7 +19,7 @@ MICROPHONES_DESCRIPTION = []
 FPS = 60.0
 
 ###########################
-# Checl Microphone
+# Check Microphone
 ###########################
 print("=====")
 print("1 / 2: Checking Microphones... ")
@@ -32,12 +32,9 @@ if (len(mics) == 0):
     exit()
 
 #############
-# Read Command Line Args
+# Read microphone selection
 #############
 MICROPHONE_INDEX = indices[0]
-parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--mic", help="Select which microphone / input device to use")
-args = parser.parse_args()
 try:
     MICROPHONE_INDEX = int(os.environ['MICROPHONE_INDEX'])
 except:
@@ -72,7 +69,10 @@ if (not ubicoustics_model.is_file()):
 print("Using deep learning model: %s" % (model_filename))
 model = load_model(model_filename)
 graph = tf.get_default_graph()
-context = ubicoustics.everything
+
+context_label = os.environ.get("CONTEXT", "everything")
+context = eval(f"ubicoustics.{context_label}")
+print("Using context:", context_label)
 
 label = dict()
 for k in range(len(context)):
@@ -94,9 +94,10 @@ def audio_samples(in_data, frame_count, time_info, status_flags):
 
         for prediction in predictions:
             m = np.argmax(prediction[0])
+
             if (m < len(label)):
                 p = label[m]
-                print("Prediction: %s (%0.2f)" % (ubicoustics.to_human_labels[label[m]], prediction[0,m]))
+                facade.state.update(label=label[m], certainty=prediction[0,m])
                 n_items = prediction.shape[1]
             else:
                 print("KeyError: %s" % m)
