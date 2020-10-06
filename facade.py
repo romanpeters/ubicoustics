@@ -1,12 +1,13 @@
+import os
 import paho.mqtt.client as mqtt
 import ubicoustics
 
-THRESHOLD = 0.97
-CYCLE_LENGTH = 3  # number of consecutive cycles a sound needs to be heard before the state changes
-SUSTAIN = 3  # number of cycles to keep the state after it has been detected
-MQTT_HOST = "10.10.10.10"
-MQTT_PORT = 1883
-MQTT_TOPIC = "ubicoustics"
+THRESHOLD = os.environ.get('THRESHOLD', 0.97)
+CYCLE_LENGTH = os.environ.get('CYCLE_LENGTH', 3)  # number of consecutive cycles a sound needs to be heard before the state changes
+SUSTAIN = os.environ.get('SUSTAIN', 3)  # number of cycles to keep the state after it has been detected
+MQTT_HOST = os.environ['MQTT_HOST']
+MQTT_PORT = int(os.environ['MQTT_PORT'])
+MQTT_TOPIC = os.environ.get('MQTT_TOPIC', "ubicoustics")
 
 client = mqtt.Client()
 client.connect(MQTT_HOST, MQTT_PORT)

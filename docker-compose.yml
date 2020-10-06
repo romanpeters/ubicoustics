@@ -4,8 +4,11 @@ services:
      image: ubicoustics:latest
      container_name: ubicoustics
      environment:
+       - MQTT_HOST=mqtt.eclipse.org
+       - MQTT_PORT=1883
        - MICROPHONE_INDEX=0  # change to a mic that's available (check docker logs)
        - CONTEXT=everything  # optional
+
      devices:
        - "/dev/snd:/dev/snd"
      restart: always

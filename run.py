@@ -3,12 +3,12 @@ from keras.models import load_model
 import tensorflow as tf
 import numpy as np
 from vggish_input import waveform_to_examples
-import ubicoustics
 import pyaudio
 from pathlib import Path
 import time
 import wget
 import facade
+import ubicoustics
 
 # Variables
 FORMAT = pyaudio.paInt16
