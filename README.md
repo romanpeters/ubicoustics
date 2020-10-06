@@ -25,3 +25,7 @@ sensor:
     name: Ubicoustics
     state_topic: "ubicoustics/state"
 ```
+
+### State labels
+"Dog Barking", "Drill In-Use", "Hazard Alarm", "Phone Ringing", "Person Talking", "Vacuum In-Use", "Baby Crying", "Chopping", "Coughing", "Door In-Use", "Water Running", "Knocking", "Microwave In-Use", "Shaver In-Use", "Toothbrushing", "Blender In-Use", "Dishwasher In-Use", "Doorbel In-Use", "Toilet Flushing", "Hair Dryer In-Use", "Laughing", "Snoring", "Typing", "Hammering", "Car Honking", "Vehicle Running", "Saw In-Use", "Cat Meowing", "Alarm Clock", "Utensils and Cutlery".
+
